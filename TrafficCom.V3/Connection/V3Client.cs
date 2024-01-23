@@ -92,7 +92,7 @@ namespace TrafficCom.V3.Connection
                         var length = (buffer[5] << 8) | buffer[6];
                         await TcpRead(con.NetworkStream, buffer, 7, length - 7);
 
-                        if (Message.VerifyCRC(buffer.ToList().GetRange(0, length)))
+                        if (Message.VerifyCRC(buffer, 0, length))
                         {
                             var msg = new DataMessage(buffer);
                             V3Request request = null;
@@ -136,7 +136,7 @@ namespace TrafficCom.V3.Connection
                     {
                         await TcpRead(con.NetworkStream, buffer, 2, 6);
 
-                        if (Message.VerifyCRC(buffer.ToList().GetRange(0, 8)))
+                        if (Message.VerifyCRC(buffer, 0, 8))
                         {
                             LogDebug($"RECV ACK");
                             var msg = new AckMessage(buffer);
@@ -155,7 +155,7 @@ namespace TrafficCom.V3.Connection
                     {
                         await TcpRead(con.NetworkStream, buffer, 2, 7);
 
-                        if (Message.VerifyCRC(buffer.ToList().GetRange(0, 9)))
+                        if (Message.VerifyCRC(buffer, 0, 9))
                         {
                             LogDebug($"RECV NAK");
                             var msg = new NakMessage(buffer);
@@ -200,9 +200,8 @@ namespace TrafficCom.V3.Connection
         {
             var waiter = WaitForMessageAsync<TResponse>(ct);
             var ack = await SendAsync(con, msg, ct);
-            var result = await waiter;
             if (ack.IsNak) throw new V3Exception("Request Rejected");
-            return result;
+            return await waiter;
         }
 
         public async Task<TResponse> WaitForMessageAsync<TResponse>(CancellationToken ct = default) where TResponse : V3Request

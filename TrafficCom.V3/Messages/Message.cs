@@ -35,17 +35,30 @@
 
         public static byte CRC(IEnumerable<byte> data)
         {
+            return CRC(data, 0, data.Count());
+        }
+
+        public static byte CRC(IEnumerable<byte> data, int start, int end)
+        {
+            if (end > data.Count() || start > end || start < 0) throw new IndexOutOfRangeException("Invalid Range");
+
             byte ck = 0;
-            foreach (var d in data)
+            for (var i = start; i < end; i++)
             {
-                ck ^= d;
+                ck ^= data.ElementAt(i);
             }
+
             return ck;
         }
 
-        public static bool VerifyCRC(List<byte> data)
+        public static bool VerifyCRC(IEnumerable<byte> data)
         {
-            return data.Last() == CRC(data.GetRange(0, data.Count - 1));
+            return VerifyCRC(data, 0, data.Count());
+        }
+
+        public static bool VerifyCRC(IEnumerable<byte> data, int start, int end)
+        {
+            return data.ElementAt(end - 1) == CRC(data, start, end - 1);
         }
 
         public abstract List<byte> Build();
