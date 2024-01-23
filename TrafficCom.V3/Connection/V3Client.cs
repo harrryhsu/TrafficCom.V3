@@ -198,8 +198,8 @@ namespace TrafficCom.V3.Connection
 
         public async Task<TResponse> SendAndWaitForReplyAsync<TResponse>(TcpConnection con, V3Request msg, CancellationToken ct = default) where TResponse : V3Request
         {
-            var ack = await SendAsync(con, msg, ct);
             var waiter = WaitForMessageAsync<TResponse>(ct);
+            var ack = await SendAsync(con, msg, ct);
             var result = await waiter;
             if (ack.IsNak) throw new V3Exception("Request Rejected");
             return result;

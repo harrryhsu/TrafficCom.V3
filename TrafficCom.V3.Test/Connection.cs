@@ -27,6 +27,7 @@ namespace TrafficCom.V3.Test
                 }),
                 Task.Run(async () =>
                 {
+                    await Task.Delay(100);
                     var message = await _client.SendAndWaitForReplyAsync<V3RequestXAFXC4>(new V3RequestXAFX14 { });
                     Assert.That(message, Is.InstanceOf(typeof(V3RequestXAFXC4)));
                 })
