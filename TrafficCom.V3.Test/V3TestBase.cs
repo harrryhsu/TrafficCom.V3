@@ -13,8 +13,8 @@ namespace TrafficCom.V3.Test
         [SetUp]
         public virtual async Task Setup()
         {
-            _server = new V3Server(1000, 1000);
-            _client = new V3Client("127.0.0.1", 1000, 1000);
+            _server = new V3Server(1000, 3000);
+            _client = new V3Client("127.0.0.1", 1000, 3000);
             _server.Debug = true;
             _client.Debug = true;
             _server.Logger = (msg) => Console.WriteLine(DateTime.Now.ToString("ss:fff") + " Server " + msg);
