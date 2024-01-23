@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --tag TrafficCom-V3
+      run: docker build . --tag trafficcom-v3
 
     - name: Run test
-      run: docker run TrafficCom-V3
+      run: docker run trafficcom-v3
