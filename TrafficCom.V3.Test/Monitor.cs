@@ -81,14 +81,17 @@ namespace TrafficCom.V3.Test
             await _monitor.SendSingleText(entry);
             var reply = await _monitor.GetSingleText(entry.Id);
 
-            Assert.That(entry.Text, Is.EqualTo(reply.Text));
-            Assert.That(entry.TextColor, Is.EqualTo(reply.TextColor));
-            Assert.That(entry.BackgroundColor, Is.EqualTo(reply.BackgroundColor));
-            Assert.That(entry.BlinkInterval, Is.EqualTo(reply.BlinkInterval));
-            Assert.That(entry.HBound, Is.EqualTo(reply.HBound));
-            Assert.That(entry.VBound, Is.EqualTo(reply.VBound));
-            Assert.That(entry.HSpace, Is.EqualTo(reply.HSpace));
-            Assert.That(entry.VSpace, Is.EqualTo(reply.VSpace));
+            Assert.Multiple(() =>
+            {
+                Assert.That(entry.Text, Is.EqualTo(reply.Text));
+                Assert.That(entry.TextColor, Is.EqualTo(reply.TextColor));
+                Assert.That(entry.BackgroundColor, Is.EqualTo(reply.BackgroundColor));
+                Assert.That(entry.BlinkInterval, Is.EqualTo(reply.BlinkInterval));
+                Assert.That(entry.HBound, Is.EqualTo(reply.HBound));
+                Assert.That(entry.VBound, Is.EqualTo(reply.VBound));
+                Assert.That(entry.HSpace, Is.EqualTo(reply.HSpace));
+                Assert.That(entry.VSpace, Is.EqualTo(reply.VSpace));
+            });
         }
     }
 }
