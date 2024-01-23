@@ -2,7 +2,7 @@
 using TrafficCom.V3.Helper;
 using TrafficCom.V3.Request;
 
-namespace Api.Services
+namespace TrafficCom.V3.Feature
 {
     public class MonitorClient
     {
