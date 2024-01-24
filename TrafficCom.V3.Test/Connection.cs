@@ -9,9 +9,7 @@ namespace TrafficCom.V3.Test
         {
             var waiter = _server.WaitForMessageAsync<V3RequestXAFX14>();
             await _client.SendAsync(new V3RequestXAFX14 { });
-
             var message = await waiter;
-
             Assert.That(message, Is.InstanceOf(typeof(V3RequestXAFX14)));
         }
 
@@ -32,6 +30,21 @@ namespace TrafficCom.V3.Test
                     Assert.That(message, Is.InstanceOf(typeof(V3RequestXAFXC4)));
                 })
             );
+        }
+
+        [Test]
+        public void Request_Command_Code_Match()
+        {
+            _client.RequestFactory.VerifyCache();
+        }
+
+        [Test]
+        public void Request_Command_Code_Not_Match()
+        {
+            Assert.Catch(() =>
+            {
+                _client.RequestFactory.Set(KeyValuePair.Create<byte, byte>(1, 2), typeof(V3RequestXE4X02));
+            });
         }
     }
 }

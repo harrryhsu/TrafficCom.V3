@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using TrafficCom.V3.Messages;
+﻿using TrafficCom.V3.Messages;
 
 namespace TrafficCom.V3.Request
 {
@@ -41,22 +40,6 @@ namespace TrafficCom.V3.Request
                 Cmd2 = Cmd2,
                 Data = BuildData(),
             };
-        }
-
-        private static readonly Lazy<List<V3Request>> RequestCache = new(() =>
-        {
-            return Assembly.GetExecutingAssembly()
-                .GetTypes()
-                .Where(x => x.IsAssignableTo(typeof(V3Request)) && !x.IsAbstract)
-                .Select(x => Activator.CreateInstance(x) as V3Request).ToList();
-        });
-
-        public static V3Request Create(DataMessage msg)
-        {
-            var cache = RequestCache.Value.FirstOrDefault(x => x.Cmd1 == msg.Cmd1 && x.Cmd2 == msg.Cmd2);
-
-            if (cache == null) return new V3RequestUnknown(msg);
-            return Activator.CreateInstance(cache.GetType(), msg) as V3Request;
         }
     }
 }

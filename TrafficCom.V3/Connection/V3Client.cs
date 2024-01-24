@@ -18,6 +18,8 @@ namespace TrafficCom.V3.Connection
 
         protected readonly ConcurrentDictionary<KeyValuePair<byte, byte>, ReplyTask> _query = new();
 
+        public readonly V3RequestFactory RequestFactory = new();
+
         public IPEndPoint Target { get; protected set; }
 
         public int TimeoutMs { get; protected set; }
@@ -94,12 +96,15 @@ namespace TrafficCom.V3.Connection
 
                         if (Message.VerifyCRC(buffer, 0, length))
                         {
-                            var msg = new DataMessage(buffer);
+                            var msg = new DataMessage(buffer)
+                            {
+                                Client = this
+                            };
                             V3Request request = null;
 
                             try
                             {
-                                request = V3Request.Create(msg);
+                                request = RequestFactory.Create(msg);
                             }
                             catch (Exception ex)
                             {

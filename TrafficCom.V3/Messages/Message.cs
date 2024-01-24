@@ -1,4 +1,6 @@
-﻿namespace TrafficCom.V3.Messages
+﻿using TrafficCom.V3.Connection;
+
+namespace TrafficCom.V3.Messages
 {
     public enum MessageType
     {
@@ -32,6 +34,8 @@
         public ushort Addr { get; set; } = 0x1;
 
         public bool IsNak { get; protected set; } = false;
+
+        public V3Client Client { get; set; }
 
         public static byte CRC(IEnumerable<byte> data)
         {

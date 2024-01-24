@@ -50,7 +50,7 @@ namespace TrafficCom.V3.Request
         {
             return new List<byte>
             {
-                (byte)((byte)Brightness & ((byte)BrightnessMode<<4)),
+                (byte)((byte)Brightness & (byte)BrightnessMode<<4),
                 (byte)From.Hour,
                 (byte)From.Minute,
                 (byte)To.Hour,

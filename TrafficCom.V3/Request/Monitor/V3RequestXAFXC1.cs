@@ -13,7 +13,6 @@ namespace TrafficCom.V3.Request
 
         public byte TextId { get; set; }
 
-
         public V3RequestXAFXC1()
         {
         }

@@ -57,12 +57,12 @@ namespace TrafficCom.V3.Request
             TextId = msg.Data[0];
             TextLength = msg.Data[1];
             TextColor = (MonitorColor)(msg.Data[2] & 0b11);
-            BackgroundColor = (MonitorColor)((msg.Data[2] >> 2) & 0b11);
-            BlinkInterval = (MonitorBlinkInterval)((msg.Data[2] >> 4) & 0b11);
+            BackgroundColor = (MonitorColor)(msg.Data[2] >> 2 & 0b11);
+            BlinkInterval = (MonitorBlinkInterval)(msg.Data[2] >> 4 & 0b11);
             VBound = msg.Data[TextLength + 2];
             HBound = msg.Data[TextLength + 3];
-            VSpace = (ushort)((msg.Data[TextLength + 4] << 8) | msg.Data[TextLength + 5]);
-            HSpace = (ushort)((msg.Data[TextLength + 6] << 8) | msg.Data[TextLength + 7]);
+            VSpace = (ushort)(msg.Data[TextLength + 4] << 8 | msg.Data[TextLength + 5]);
+            HSpace = (ushort)(msg.Data[TextLength + 6] << 8 | msg.Data[TextLength + 7]);
         }
 
         protected override List<byte> BuildData()
@@ -73,7 +73,7 @@ namespace TrafficCom.V3.Request
                 TextLength,
             };
 
-            var color = (byte)(BlinkInterval) << 4 | (byte)(BackgroundColor) << 2 | (byte)(TextColor);
+            var color = (byte)BlinkInterval << 4 | (byte)BackgroundColor << 2 | (byte)TextColor;
 
             data.AddRange(Enumerable.Repeat((byte)color, TextLength));
             data.AddRange(new byte[]
@@ -81,9 +81,9 @@ namespace TrafficCom.V3.Request
                 VBound,
                 HBound,
                 (byte)(VSpace>>8),
-                (byte)(VSpace),
+                (byte)VSpace,
                 (byte)(HSpace>>8),
-                (byte)(HSpace),
+                (byte)HSpace,
             });
 
             return data;

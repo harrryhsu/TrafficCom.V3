@@ -6,7 +6,7 @@ namespace TrafficCom.V3.Request
     {
         public override byte Cmd1 => 0x0f;
 
-        public override byte Cmd2 => 0x12;
+        public override byte Cmd2 => 0x92;
 
         public byte Diff { get; set; }
 

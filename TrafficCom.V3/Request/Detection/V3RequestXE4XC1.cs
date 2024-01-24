@@ -21,7 +21,7 @@ namespace TrafficCom.V3.Request
 
         public V3RequestXE4XC1(DataMessage msg) : base(msg)
         {
-            VehicleNo = (ushort)((msg.Data[0] << 8) | msg.Data[1]);
+            VehicleNo = (ushort)(msg.Data[0] << 8 | msg.Data[1]);
             VehicleLen = msg.Data[2];
 
             var offset = 3;
@@ -52,7 +52,7 @@ namespace TrafficCom.V3.Request
             var data = new List<byte>
             {
                 (byte)(VehicleNo>>8),
-                (byte)(VehicleNo),
+                (byte)VehicleNo,
                 VehicleLen
             };
 

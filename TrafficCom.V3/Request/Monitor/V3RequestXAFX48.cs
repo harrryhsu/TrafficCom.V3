@@ -6,7 +6,7 @@ namespace TrafficCom.V3.Request
     {
         public override byte Cmd1 => 0xAF;
 
-        public override byte Cmd2 => 0x47;
+        public override byte Cmd2 => 0x48;
 
         public V3RequestXAFX48()
         {
@@ -14,7 +14,7 @@ namespace TrafficCom.V3.Request
 
         public V3RequestXAFX48(DataMessage msg) : base(msg)
         {
-            PatternCode = (ushort)(msg.Data[1] & (msg.Data[0] << 8));
+            PatternCode = (ushort)(msg.Data[1] & msg.Data[0] << 8);
             FrameRow = msg.Data[2];
             FrameColumn = msg.Data[3];
             FrameNumber = msg.Data[5];
