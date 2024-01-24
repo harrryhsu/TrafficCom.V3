@@ -1,14 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
+	<IsPackable>true</IsPackable>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <OutputType>Library</OutputType>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>$(AssemblyName)</Title>
+    <Authors>Harry Hsu</Authors>
+    <Description>Taiwanese urban traffic communication protocol V3 .NetCore implementation (都市交通控制通訊協定)</Description>
+    <Copyright>Copyright 2024 Harry Hsu</Copyright>
+    <PackageProjectUrl>https://github.com/harrryhsu/TrafficCom.V3</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+	<None Include="..\LICENSE" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

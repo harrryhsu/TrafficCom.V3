@@ -2,20 +2,20 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --tag trafficcom-v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Run test
-      run: docker run trafficcom-v3
+      - name: Build & Test
+        run: docker build . --tag trafficcom-v3
+
+      - name: Publish
+        run: docker run trafficcom-v3 --api-key ${{ secrets.SuperSecret }}

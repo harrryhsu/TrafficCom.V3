@@ -5,4 +5,9 @@ WORKDIR /app
 COPY . ./
 RUN dotnet restore
 
-CMD ["dotnet", "test", "TrafficCom.V3.Test", "-c", "Release"]
+RUN dotnet build -c Release --no-restore
+RUN dotnet test TrafficCom.V3.Test -c Release --no-restore
+RUN dotnet pack -c Release --no-restore --no-build -o /sln/artifacts 
+
+ENTRYPOINT ["dotnet", "nuget", "push", "/sln/artifacts/*.nupkg"]
+CMD ["--source", "https://api.nuget.org/v3/index.json"]
