@@ -1,3 +1,5 @@
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/harrryhsu/TrafficCom.V3/docker-image.yml) ![NuGet Downloads](https://img.shields.io/nuget/dt/TrafficCom.V3)
+
 
 # TrafficCom.V3
 
